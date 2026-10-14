@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="ru" class="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maki sushi — Samurai Style Sushi Bar</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        samurai: {
+                            red: '#DC2626',
+                            darkRed: '#991B1B',
+                            gold: '#D97706',
+                            goldLight: '#FBBF24',
+                            black: '#0A0A0C',
+                            darkGray: '#141418',
+                            cardBg: '#1A1A20',
+                            steel: '#E2E8F0'
+                        }
+                    },
+                    fontFamily: {
+                        cinzel: ['Cinzel', 'serif'],
+                        inter: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Inter:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0A0A0C;
+            color: #E2E8F0;
+            overflow-x: hidden;
+        }
+
+        .font-cinzel {
+            font-family: 'Cinzel', serif;
+        }
+
+        /* Background Video Container Styling */
+        .bg-video-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .bg-video-container video {
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            filter: brightness(1.25) contrast(1.1);
+        }
+
+        .bg-video-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(10, 10, 12, 0.55);
+            z-index: 1;
+        }
+
+        /* Glowing text gradient */
+        .glow-text {
+            background: linear-gradient(135deg, #FFFFFF 20%, #FBBF24 60%, #DC2626 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 25px rgba(220, 38, 38, 0.35);
+        }
+
+        /* Red Katana Divider */
+        .katana-line {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #DC2626, #FBBF24, #DC2626, transparent);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0A0A0C;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #27272A;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #DC2626;
+        }
+
+        /* Card Hover Effects */
+        .samurai-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+        }
+
+        .samurai-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(220, 38, 38, 0.5);
+            box-shadow: 0 12px 30px -8px rgba(220, 38, 38, 0.3);
+        }
+
+        /* Sakura Canvas */
+        #sakura-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+        }
+    </style>
+</head>
+
+<body class="relative min-h-screen text-slate-100 antialiased selection:bg-samurai-red selection:text-white">
+
+    <!-- Background Video & Dark Overlay -->
+    <div class="bg-video-container">
+        <video autoplay muted loop playsinline>
+            <source src="самурай.mp4" type="video/mp4">
+        </video>
+        <div class="bg-video-overlay"></div>
+    </div>
+
+    <!-- Sakura Petals Canvas Animation -->
+    <canvas id="sakura-canvas"></canvas>
+
+    <!-- MAIN WRAPPER -->
+    <div class="relative z-10 flex flex-col min-h-screen">
+
+        <!-- NAVIGATION HEADER -->
+        <header
+            class="sticky top-0 z-40 backdrop-blur-md bg-samurai-black/85 border-b border-white/10 transition-all duration-300">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+
+                <!-- Logo & Brand Name -->
+                <a href="#" class="flex items-center gap-2.5 group">
+                    <div class="relative">
+                        <img src="logo.png" alt="Maki Sushi Logo"
+                            class="w-10 h-10 sm:w-11 sm:h-11 object-cover rounded-full border border-samurai-goldLight/70 shadow-[0_0_10px_rgba(220,38,38,0.5)] transition-transform duration-300 group-hover:scale-105 bg-samurai-darkGray"
+                            onerror="this.onerror=null; this.src='https://placehold.co/120x120/141418/DC2626?text=Maki';">
+                    </div>
+                    <div class="flex flex-col">
+                        <span
+                            class="font-cinzel text-base sm:text-lg font-bold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-white via-amber-100 to-amber-400 whitespace-nowrap">MAKI
+                            SUSHI</span>
+                        <span
+                            class="text-[8px] sm:text-[9px] uppercase tracking-[0.2em] text-samurai-goldLight font-medium -mt-0.5 whitespace-nowrap">Samurai
+                            Bar</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="#home"
+                        class="text-sm uppercase tracking-wider font-semibold text-gray-200 hover:text-samurai-red transition-colors"
+                        data-i18n="navHome">Главная</a>
+                    <a href="#menu"
+                        class="text-sm uppercase tracking-wider font-semibold text-gray-200 hover:text-samurai-red transition-colors"
+                        data-i18n="navMenu">Меню</a>
+                    <a href="#about"
+                        class="text-sm uppercase tracking-wider font-semibold text-gray-200 hover:text-samurai-red transition-colors"
+                        data-i18n="navAbout">О нас</a>
+                    <a href="#contact"
+                        class="text-sm uppercase tracking-wider font-semibold text-gray-200 hover:text-samurai-red transition-colors"
+                        data-i18n="navContact">Контакты</a>
+                </nav>
+
+                <!-- Header Actions (Language Switcher & Cart) -->
+                <div class="flex items-center space-x-3">
+
+                    <!-- Language Selector Switcher -->
+                    <div
+                        class="relative bg-samurai-darkGray border border-gray-700 hover:border-samurai-goldLight rounded-xl px-2 py-1 flex items-center gap-1 transition-colors">
+                        <i class="fa-solid fa-globe text-samurai-goldLight text-xs ml-1"></i>
+                        <select id="lang-switcher" onchange="switchLanguage(this.value)"
+                            class="bg-transparent text-xs font-bold text-white focus:outline-none cursor-pointer pr-1">
+                            <option value="ru" class="bg-samurai-darkGray text-white" selected>RU</option>
+                            <option value="kg" class="bg-samurai-darkGray text-white">KG</option>
+                            <option value="en" class="bg-samurai-darkGray text-white">EN</option>
+                        </select>
+                    </div>
+
+                    <!-- Cart Trigger Button -->
+                    <button id="cart-btn" onclick="toggleCartModal()"
+                        class="relative p-2.5 rounded-xl bg-samurai-darkGray border border-red-900/50 hover:border-samurai-red hover:bg-samurai-red/10 transition-all text-white flex items-center justify-center">
+                        <i class="fa-solid fa-cart-shopping text-base text-samurai-goldLight"></i>
+                        <span id="cart-count"
+                            class="absolute -top-2 -right-2 bg-samurai-red text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center shadow-lg border border-black">0</span>
+                    </button>
+
+                    <!-- Mobile Menu Button -->
+                    <button onclick="toggleMobileMenu()" class="md:hidden p-2 text-gray-300 hover:text-white">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Navigation Menu -->
+            <div id="mobile-menu"
+                class="hidden md:hidden bg-samurai-darkGray/95 backdrop-blur-lg border-b border-white/10 px-4 pt-2 pb-6 space-y-3">
+                <a href="#home" onclick="toggleMobileMenu()"
+                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-200 hover:bg-samurai-red/20 hover:text-white"
+                    data-i18n="navHome">Главная</a>
+                <a href="#menu" onclick="toggleMobileMenu()"
+                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-200 hover:bg-samurai-red/20 hover:text-white"
+                    data-i18n="navMenu">Меню</a>
+                <a href="#about" onclick="toggleMobileMenu()"
+                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-200 hover:bg-samurai-red/20 hover:text-white"
+                    data-i18n="navAbout">О нас</a>
+                <a href="#contact" onclick="toggleMobileMenu()"
+                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-200 hover:bg-samurai-red/20 hover:text-white"
+                    data-i18n="navContact">Контакты</a>
+            </div>
+        </header>
+
+        <!-- HERO SECTION -->
+        <section id="home" class="relative py-16 lg:py-28 overflow-hidden flex items-center min-h-[80vh]">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+
+                    <!-- Text Left -->
+                    <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                        <div
+                            class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-950/60 border border-red-600/40 text-samurai-goldLight text-xs sm:text-sm font-semibold uppercase tracking-wider">
+                            <i class="fa-solid fa-fan text-samurai-red animate-spin"
+                                style="animation-duration: 8s;"></i>
+                            <span data-i18n="heroBadge">Истинные традиции Японии</span>
+                        </div>
+
+                        <h1
+                            class="text-4xl sm:text-6xl lg:text-7xl font-black font-cinzel leading-tight text-white tracking-wide">
+                            Maki sushi — <br>
+                            <span class="glow-text" data-i18n="heroTitle">Сила Самурая</span>
+                        </h1>
+
+                        <p class="text-gray-300 text-base sm:text-lg max-w-2xl font-light leading-relaxed mx-auto lg:mx-0"
+                            data-i18n="heroDesc">
+                            Каждый ролл — это плод мастерства, точности, подобной острой Катане, и уважения к
+                            многовековым традициям.
+                        </p>
+
+                        <div class="pt-4 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                            <a href="#menu"
+                                class="px-8 py-4 rounded-xl bg-gradient-to-r from-samurai-red to-samurai-darkRed text-white font-bold text-center shadow-xl shadow-red-950/50 hover:scale-105 transition-all border border-red-500/40 flex items-center justify-center gap-3">
+                                <span data-i18n="btnViewMenu">Смотреть меню</span>
+                                <i class="fa-solid fa-arrow-right text-sm"></i>
+                            </a>
+                            <button onclick="toggleCartModal()"
+                                class="px-8 py-4 rounded-xl bg-samurai-darkGray border border-gray-700 hover:border-samurai-gold text-white font-bold text-center hover:bg-samurai-cardBg transition-all flex items-center justify-center gap-3">
+                                <i class="fa-solid fa-cart-shopping text-samurai-goldLight"></i>
+                                <span data-i18n="btnOpenCart">Открыть корзину</span>
+                            </button>
+                        </div>
+
+                        <!-- Stats Highlights -->
+                        <div class="pt-8 grid grid-cols-3 gap-4 border-t border-white/10 max-w-lg mx-auto lg:mx-0">
+                            <div>
+                                <p class="text-2xl sm:text-3xl font-black font-cinzel text-samurai-goldLight">100%</p>
+                                <p class="text-xs text-gray-400" data-i18n="statFresh">Свежие продукты</p>
+                            </div>
+                            <div>
+                                <p class="text-2xl sm:text-3xl font-black font-cinzel text-samurai-red">Yandex</p>
+                                <p class="text-xs text-gray-400" data-i18n="statDelivery">Быстрая доставка</p>
+                            </div>
+                            <div>
+                                <p class="text-2xl sm:text-3xl font-black font-cinzel text-samurai-goldLight">30+</p>
+                                <p class="text-xs text-gray-400" data-i18n="statSets">Видов роллов</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Visual Right -->
+                    <div class="lg:col-span-5 flex justify-center relative">
+                        <div class="relative w-72 h-72 sm:w-96 sm:h-96 rounded-full flex items-center justify-center">
+                            <!-- Outer Rotating Rings -->
+                            <div class="absolute inset-0 rounded-full border-2 border-dashed border-red-600/40 animate-spin"
+                                style="animation-duration: 25s;"></div>
+                            <div class="absolute -inset-4 rounded-full border border-samurai-gold/20"></div>
+                            <div
+                                class="absolute inset-0 rounded-full bg-gradient-to-tr from-samurai-red/30 to-amber-500/10 blur-2xl">
+                            </div>
+
+                            <!-- Hero Featured Image -->
+                            <img src="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=800&q=80"
+                                alt="Maki Sushi Special"
+                                class="relative z-10 w-full h-full object-cover rounded-full p-2 border-4 border-samurai-gold/40 shadow-2xl shadow-red-950/80">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <div class="katana-line max-w-6xl mx-auto my-4"></div>
+
+        <!-- FULL INTERACTIVE MENU SECTION -->
+        <section id="menu" class="py-16 bg-samurai-darkGray/70 backdrop-blur-md relative z-10 border-y border-white/5">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-10">
+                    <h2 class="text-3xl sm:text-5xl font-black font-cinzel text-white" data-i18n="menuTitle">Наше Меню
+                    </h2>
+                    <p class="text-gray-400 mt-2 text-sm sm:text-base" data-i18n="menuDesc">Блюда, приготовленные по
+                        оригинальным японским рецептам</p>
+                </div>
+
+                <!-- Dynamic Items Grid -->
+                <div id="menu-items-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Dynamic JavaScript Rendered Items -->
+                </div>
+            </div>
+        </section>
+
+        <!-- SAMURAI PHILOSOPHY SECTION -->
+        <section id="about" class="py-20 relative z-10 overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+
+                    <div class="lg:col-span-6 space-y-6">
+                        <div class="inline-block px-3 py-1 rounded-full bg-samurai-gold/10 border border-samurai-gold/30 text-samurai-goldLight text-xs font-bold uppercase tracking-widest"
+                            data-i18n="aboutBadge">
+                            Философия
+                        </div>
+                        <h2 class="text-3xl sm:text-5xl font-black font-cinzel text-white leading-tight"
+                            data-i18n="aboutTitle">
+                            Наша Самурайская Философия
+                        </h2>
+                        <div class="katana-line w-24"></div>
+                        <p class="text-gray-300 leading-relaxed font-light" data-i18n="aboutText1">
+                            Для самурая Катана — это не просто оружие, это его честь и душа. В суши-баре <strong
+                                class="text-samurai-goldLight">Maki sushi</strong> мы относимся к кулинарии с такой же
+                            высокой ответственностью.
+                        </p>
+                        <p class="text-gray-400 leading-relaxed text-sm" data-i18n="aboutText2">
+                            Выбор рыбы, приготовление риса и нарезка каждого кусочка — это искусство, хранимое веками.
+                        </p>
+
+                        <div class="grid grid-cols-2 gap-4 pt-4">
+                            <div class="p-4 bg-samurai-cardBg/90 backdrop-blur rounded-xl border border-white/5">
+                                <i class="fa-solid fa-bullseye text-samurai-red text-2xl mb-2"></i>
+                                <h5 class="font-bold font-cinzel text-white" data-i18n="feature1Title">Точность
+                                    филиграна</h5>
+                                <p class="text-xs text-gray-400 mt-1" data-i18n="feature1Desc">Каждый грамм риса и рыбы
+                                    под строгим контролем.</p>
+                            </div>
+                            <div class="p-4 bg-samurai-cardBg/90 backdrop-blur rounded-xl border border-white/5">
+                                <i class="fa-solid fa-leaf text-samurai-goldLight text-2xl mb-2"></i>
+                                <h5 class="font-bold font-cinzel text-white" data-i18n="feature2Title">Свежайшие
+                                    продукты</h5>
+                                <p class="text-xs text-gray-400 mt-1" data-i18n="feature2Desc">Ежедневная поставка
+                                    свежей океанической рыбы.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-6 relative">
+                        <div class="relative rounded-2xl overflow-hidden border-2 border-samurai-gold/30 shadow-2xl">
+                            <img src="https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?auto=format&fit=crop&w=800&q=80"
+                                alt="Sushi Master Crafting" class="w-full h-[420px] object-cover">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-samurai-black via-transparent to-transparent">
+                            </div>
+                            <div
+                                class="absolute bottom-6 left-6 right-6 p-4 bg-samurai-black/90 backdrop-blur-md rounded-xl border border-white/10">
+                                <p class="text-xs italic text-gray-300" data-i18n="quoteText">"Приготовление еды — это
+                                    отражение души повара."</p>
+                                <span class="text-xs font-bold text-samurai-goldLight block mt-1"
+                                    data-i18n="quoteAuthor">— Шеф Самурай</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT & FOOTER SECTION -->
+        <section id="contact" class="py-16 bg-samurai-darkGray/85 relative z-10 border-t border-white/10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+                    <!-- Col 1 -->
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-3">
+                            <img src="logo.png" alt="Maki Sushi Logo"
+                                class="w-10 h-10 object-cover rounded-full border border-samurai-goldLight/60 bg-samurai-darkGray"
+                                onerror="this.onerror=null; this.src='https://placehold.co/120x120/141418/DC2626?text=Maki';">
+                            <span class="font-cinzel text-base font-bold tracking-wider text-white">MAKI SUSHI</span>
+                        </div>
+                        <p class="text-xs text-gray-400 leading-relaxed" data-i18n="footerAbout">
+                            Maki sushi — японские традиции, свежесть и отменный вкус на вашем столе.
+                        </p>
+                        <div class="flex space-x-3 pt-2">
+                            <a href="#"
+                                class="w-9 h-9 rounded-lg bg-samurai-cardBg flex items-center justify-center text-gray-300 hover:text-samurai-red hover:border hover:border-samurai-red transition-all"><i
+                                    class="fa-brands fa-instagram"></i></a>
+                            <a href="https://wa.me/996507578578" target="_blank"
+                                class="w-9 h-9 rounded-lg bg-samurai-cardBg flex items-center justify-center text-gray-300 hover:text-samurai-red hover:border hover:border-samurai-red transition-all"><i
+                                    class="fa-brands fa-whatsapp"></i></a>
+                            <a href="#"
+                                class="w-9 h-9 rounded-lg bg-samurai-cardBg flex items-center justify-center text-gray-300 hover:text-samurai-red hover:border hover:border-samurai-red transition-all"><i
+                                    class="fa-brands fa-telegram"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Col 2 -->
+                    <div class="space-y-3">
+                        <h4 class="text-lg font-bold font-cinzel text-white" data-i18n="contactTitle">Контактная
+                            Информация</h4>
+                        <div class="space-y-2 text-xs text-gray-300">
+                            <p class="flex items-center gap-2"><i class="fa-solid fa-location-dot text-samurai-red"></i>
+                                <span data-i18n="contactAddress">г. Бишкек, пр. Чуй 142</span>
+                            </p>
+                            <p class="flex items-center gap-2"><i class="fa-solid fa-phone text-samurai-goldLight"></i>
+                                +996 (507) 57-85-78</p>
+                            <p class="flex items-center gap-2"><i class="fa-solid fa-clock text-samurai-red"></i> <span
+                                    data-i18n="contactHours">Время работы: 10:00 - 01:00</span></p>
+                        </div>
+                    </div>
+
+                    <!-- Col 3 -->
+                    <div class="space-y-3">
+                        <h4 class="text-lg font-bold font-cinzel text-white" data-i18n="yandexInfoTitle">Условия
+                            Доставки</h4>
+                        <div
+                            class="p-3.5 rounded-xl bg-samurai-black/90 border border-samurai-gold/30 text-xs space-y-2">
+                            <p class="text-samurai-goldLight font-bold flex items-center gap-2">
+                                <i class="fa-solid fa-truck-fast"></i>
+                                <span data-i18n="yandexBannerTitle">Яндекс Доставка</span>
+                            </p>
+                            <p class="text-gray-300 text-[11px] leading-relaxed" data-i18n="yandexBannerDesc">
+                                Все заказы доставляются через Яндекс Экспресс. Отправка производится после оплаты.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="katana-line my-8"></div>
+
+                <div class="text-center text-xs text-gray-500">
+                    <p>&copy; 2026 Maki sushi. <span data-i18n="copyright">Все права защищены.</span></p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- SHOPPING CART DRAWER / MODAL -->
+    <div id="cart-modal" class="fixed inset-0 z-50 hidden transition-opacity duration-300">
+        <!-- Backdrop -->
+        <div onclick="toggleCartModal()" class="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
+
+        <!-- Cart Sidebar Drawer -->
+        <div
+            class="absolute right-0 top-0 bottom-0 w-full max-w-md bg-samurai-darkGray border-l border-white/10 shadow-2xl flex flex-col justify-between z-10">
+
+            <!-- Cart Header -->
+            <div class="p-5 border-b border-white/10 flex items-center justify-between bg-samurai-black">
+                <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-cart-shopping text-samurai-goldLight text-xl"></i>
+                    <h3 class="text-xl font-bold font-cinzel text-white" data-i18n="cartHeading">Ваша Корзина</h3>
+                </div>
+                <button onclick="toggleCartModal()" class="text-gray-400 hover:text-white text-xl p-1">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Cart Body (Items + Order Options) -->
+            <div class="p-5 overflow-y-auto flex-1 space-y-5">
+
+                <!-- Cart Items List Container -->
+                <div id="cart-items-container" class="space-y-3">
+                    <!-- Rendered dynamically -->
+                </div>
+
+                <!-- Order Customization & Customer Input Form -->
+                <div id="cart-order-form" class="pt-4 border-t border-white/10 space-y-4">
+
+                    <!-- Delivery Mode Segmented Controls (Самовывоз / Доставка) -->
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-gray-300 mb-2"
+                            data-i18n="labelDeliveryType">Способ получения:</label>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button type="button" id="btn-mode-delivery" onclick="setDeliveryType('delivery')"
+                                class="py-2.5 px-3 rounded-xl border text-xs font-bold transition-all flex items-center justify-center gap-2 border-samurai-red bg-samurai-red text-white">
+                                <i class="fa-solid fa-truck"></i> <span data-i18n="modeDelivery">Доставка</span>
+                            </button>
+                            <button type="button" id="btn-mode-pickup" onclick="setDeliveryType('pickup')"
+                                class="py-2.5 px-3 rounded-xl border text-xs font-bold transition-all flex items-center justify-center gap-2 border-gray-700 bg-samurai-black text-gray-400 hover:border-samurai-gold">
+                                <i class="fa-solid fa-store"></i> <span data-i18n="modePickup">Самовывоз</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Delivery Notice Banner -->
+                    <div id="delivery-notice"
+                        class="p-3.5 rounded-xl bg-[#092231]/90 border border-[#1e5a7b] text-xs text-gray-100 flex items-start gap-2.5 shadow-inner">
+                        <i class="fa-solid fa-triangle-exclamation text-amber-500 text-sm mt-0.5"></i>
+                        <p class="leading-relaxed" id="notice-text-content">
+                            <strong class="font-bold text-white">Примечание:</strong> Доставка осуществляется через
+                            Яндекс. Доставка выполняется <span class="underline underline-offset-2">только после
+                                оплаты</span> при переходе в WhatsApp.
+                        </p>
+                    </div>
+
+                    <!-- Customer Details Input Fields -->
+                    <div class="space-y-3">
+                        <div>
+                            <label class="block text-[11px] font-semibold uppercase text-gray-400 mb-1"
+                                data-i18n="labelName">Ваше имя *</label>
+                            <input type="text" id="cust-name" placeholder="Нурбек"
+                                class="w-full bg-samurai-black border border-gray-700 focus:border-samurai-red rounded-xl p-2.5 text-xs text-white focus:outline-none transition-colors">
+                        </div>
+
+                        <div>
+                            <label class="block text-[11px] font-semibold uppercase text-gray-400 mb-1"
+                                data-i18n="labelPhone">Номер телефона *</label>
+                            <input type="tel" id="cust-phone" placeholder="+996 (500) 00-00-00"
+                                class="w-full bg-samurai-black border border-gray-700 focus:border-samurai-red rounded-xl p-2.5 text-xs text-white focus:outline-none transition-colors">
+                        </div>
+
+                        <!-- Address Field (Hidden in Pickup Mode) -->
+                        <div id="address-input-wrapper">
+                            <label class="block text-[11px] font-semibold uppercase text-gray-400 mb-1"
+                                data-i18n="labelAddress">Адрес доставки *</label>
+                            <input type="text" id="cust-address" placeholder="ул. Ахунбаева 120, кв. 45"
+                                class="w-full bg-samurai-black border border-gray-700 focus:border-samurai-red rounded-xl p-2.5 text-xs text-white focus:outline-none transition-colors">
+                        </div>
+
+                        <!-- Notes Field -->
+                        <div>
+                            <label class="block text-[11px] font-semibold uppercase text-gray-400 mb-1"
+                                data-i18n="labelNotes">Примечание / Особые пожелания</label>
+                            <textarea id="cust-notes" rows="2"
+                                placeholder="Например: Больше васаби, палочки на 3 персоны..."
+                                class="w-full bg-samurai-black border border-gray-700 focus:border-samurai-red rounded-xl p-2.5 text-xs text-white focus:outline-none transition-colors resize-none"></textarea>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Cart Footer (Total + WhatsApp Send Button) -->
+            <div class="p-5 border-t border-white/10 bg-samurai-black space-y-4">
+                <div class="flex justify-between items-center text-lg font-bold">
+                    <span class="text-gray-300 font-cinzel text-sm sm:text-base" data-i18n="totalLabel">Итоговая
+                        сумма:</span>
+                    <span id="cart-total-price" class="text-samurai-goldLight text-2xl font-cinzel">0 сом</span>
+                </div>
+
+                <!-- Send to WhatsApp CTA -->
+                <button onclick="sendOrderToWhatsApp()"
+                    class="w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-600 to-green-700 hover:from-emerald-500 hover:to-green-600 text-white font-bold text-center transition-all shadow-lg shadow-green-950/50 flex items-center justify-center gap-2 text-sm">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    <span data-i18n="btnWhatsApp">Заказать через WhatsApp</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentLang = 'ru';
+        let selectedDeliveryMode = 'delivery';
+        let cart = [];
+        const ADMIN_WHATSAPP_NUMBER = "996507578578";
+
+        const translations = {
+            ru: {
+                navHome: "Главная",
+                navMenu: "Меню",
+                navAbout: "О нас",
+                navContact: "Контакты",
+                heroBadge: "Истинные традиции Японии",
+                heroTitle: "Сила Самурая",
+                heroDesc: "Каждый ролл — это плод мастерства, точности, подобной острой Катане, и уважения к многовековым традициям.",
+                btnViewMenu: "Смотреть меню",
+                btnOpenCart: "Открыть корзину",
+                btnToCart: "В корзину",
+                statFresh: "Свежие продукты",
+                statDelivery: "Быстрая доставка",
+                statSets: "Видов роллов",
+                menuTitle: "Наше Меню",
+                menuDesc: "Блюда, приготовленные по оригинальным японским рецептам",
+                aboutBadge: "Философия",
+                aboutTitle: "Наша Самурайская Философия",
+                aboutText1: "Для самурая Катана — это не просто оружие, это его честь и душа. В суши-баре Maki sushi мы относимся к кулинарии с такой же высокой ответственностью.",
+                aboutText2: "Выбор рыбы, приготовление риса и нарезка каждого кусочка — это искусство, хранимое веками.",
+                feature1Title: "Точность филиграна",
+                feature1Desc: "Каждый грамм риса и рыбы под строгим контролем.",
+                feature2Title: "Свежайшие продукты",
+                feature2Desc: "Ежедневная поставка свежей океанической рыбы.",
+                quoteText: '"Приготовление еды — это отражение души повара."',
+                quoteAuthor: "— Шеф Самурай",
+                contactTitle: "Контактная Информация",
+                contactAddress: "г. Бишкек, пр. Чуй 142",
+                contactHours: "Время работы: 10:00 - 01:00",
+                yandexInfoTitle: "Условия Доставки",
+                yandexBannerTitle: "Яндекс Доставка",
+                yandexBannerDesc: "Все заказы доставляются через Яндекс Экспресс. Отправка производится после оплаты.",
+                copyright: "Все права защищены.",
+                footerAbout: "Maki sushi — японские традиции, свежесть и отменный вкус на вашем столе.",
+                cartHeading: "Ваша Корзина",
+                labelDeliveryType: "Способ получения:",
+                modeDelivery: "Доставка",
+                modePickup: "Самовывоз",
+                noticeHtml: '<strong class="font-bold text-white">Примечание:</strong> Доставка осуществляется через Яндекс. Доставка выполняется <span class="underline underline-offset-2">только после оплаты</span> при переходе в WhatsApp.',
+                labelName: "Ваше имя *",
+                labelPhone: "Номер телефона *",
+                labelAddress: "Адрес доставки *",
+                labelNotes: "Примечание / Особые пожелания",
+                placeholderName: "Нурбек",
+                placeholderPhone: "+996 (500) 00-00-00",
+                placeholderAddress: "ул. Ахунбаева 120, кв. 45",
+                placeholderNotes: "Например: Больше васаби, палочки на 3 персоны...",
+                totalLabel: "Итоговая сумма:",
+                btnWhatsApp: "Заказать через WhatsApp",
+                cartEmptyMsg: "Ваша корзина пока пуста",
+                alertFillFields: "Пожалуйста, заполните обязательные поля!",
+                alertEmptyCart: "Ваша корзина пуста! Выберите блюда."
+            },
+            kg: {
+                navHome: "Башкы бет",
+                navMenu: "Меню",
+                navAbout: "Биз жөнүндө",
+                navContact: "Байланыш",
+                heroBadge: "Япониянын нукура салттары",
+                heroTitle: "Самурай Күчү",
+                heroDesc: "Ар бир ролл — чеберчиликтин, курч Катана сыяктуу тактыктын жана кылымдардан бери келе жаткан салтка болгон урмат-сыйдын кылдат эмгеги.",
+                btnViewMenu: "Менюну көрүү",
+                btnOpenCart: "Себетти ачуу",
+                btnToCart: "Себетке",
+                statFresh: "Таза & Жаңы азыктар",
+                statDelivery: "Ыкчам жеткирүү",
+                statSets: "Ролл түрлөрү",
+                menuTitle: "Биздин Меню",
+                menuDesc: "Япониянын нукура рецепттери менен даярдалган тамактар",
+                aboutBadge: "Философия",
+                aboutTitle: "Биздин Самурай Философиябыз",
+                aboutText1: "Самурайлар үчүн Катана жөн гана курал эмес — бул алардын ар-намысы жана каны. Maki sushi суши-барында биз да кулинардык өнөргө дал ошондой жоопкерчилик менен мамиле кылабыз.",
+                aboutText2: "Ар бир балыкты тандоо, күрүчтү даярдоо жана ар бир кесимди тууралоо — бул кылымдар бою сакталган чеберчилик.",
+                feature1Title: "Кылдат тактык",
+                feature1Desc: "Ар бир грамм күрүч жана балык катуу көзөмөлдөнөт.",
+                feature2Title: "Таза азыктар",
+                feature2Desc: "Күн сайын жаңы жеткирилген океан балыктары.",
+                quoteText: '"Тамак даярдоо — бул ашпозчунун жан дүйнөсүнүн чагылышы."',
+                quoteAuthor: "— Шеф Самурай",
+                contactTitle: "Байланыш Маалыматы",
+                contactAddress: "Бишкек ш., Чүй проспектиси 142",
+                contactHours: "Иш убактысы: 10:00 - 01:00",
+                yandexInfoTitle: "Жеткирүү Шарты",
+                yandexBannerTitle: "Яндекс Жеткирүү",
+                yandexBannerDesc: "Бардык жеткирүүлөр Яндекс Экспресс аркылуу жүргүзүлөт. Буйрутма алдын ала төлөнгөндөн кийин жөнөтүлөт.",
+                copyright: "Бардык укуктар корголгон.",
+                footerAbout: "Maki sushi — Япониянын самурайлык салтын, тазалыгын жана нукура даамын дасторконуңузга тартуулайт.",
+                cartHeading: "Сиздин Себетиңиз",
+                labelDeliveryType: "Жеткирүү түрү:",
+                modeDelivery: "Доставка",
+                modePickup: "Самовывоз",
+                noticeHtml: '<strong class="font-bold text-white">Эскертүү:</strong> Доставка Яндекс аркылуу жүргүзүлөт. Доставка WhatsApp\'ка өткөндөн кийин <span class="underline underline-offset-2">төлөм аткарылгандан кийин гана</span> аткарылат.',
+                labelName: "Аты-жөнүңүз *",
+                labelPhone: "Телефон номериңиз *",
+                labelAddress: "Жеткирүү дареги *",
+                labelNotes: "Примечание / Кошумча эскертүү",
+                placeholderName: "Нурбек",
+                placeholderPhone: "+996 (500) 00-00-00",
+                placeholderAddress: "көч. Ахунбаев 120, батир 45",
+                placeholderNotes: "Мисалы: Васаби көбүрөөк болсун, 3 кишиге палочка...",
+                totalLabel: "Жалпы сумма:",
+                btnWhatsApp: "WhatsApp аркылуу буйрутма берүү",
+                cartEmptyMsg: "Себетиңиз азырынча бош",
+                alertFillFields: "Сураныч, керектүү талааларды толтуруңуз!",
+                alertEmptyCart: "Себетиңиз бош! Адегенде тамак тандаңыз."
+            },
+            en: {
+                navHome: "Home",
+                navMenu: "Menu",
+                navAbout: "About Us",
+                navContact: "Contact",
+                heroBadge: "Authentic Japanese Traditions",
+                heroTitle: "Samurai Power",
+                heroDesc: "Every roll is crafted with master precision reminiscent of a Katana, honoring centuries of tradition.",
+                btnViewMenu: "View Menu",
+                btnOpenCart: "Open Cart",
+                btnToCart: "To Cart",
+                statFresh: "100% Fresh Produce",
+                statDelivery: "Swift Delivery",
+                statSets: "Types of Rolls",
+                menuTitle: "Our Menu",
+                menuDesc: "Dishes prepared following authentic Japanese recipes",
+                aboutBadge: "Philosophy",
+                aboutTitle: "Our Samurai Philosophy",
+                aboutText1: "For a samurai, Katana is honor itself. At Maki sushi, we approach culinary craft with identical devotion.",
+                aboutText2: "Choosing fish, preparing rice, and slicing with care is an ancient art form.",
+                feature1Title: "Utmost Precision",
+                feature1Desc: "Every gram of rice and fish is strictly monitored.",
+                feature2Title: "Pure Produce",
+                feature2Desc: "Fresh ocean fish delivered daily.",
+                quoteText: '"Cooking is the direct reflection of the chef\'s soul."',
+                quoteAuthor: "— Chef Samurai",
+                contactTitle: "Contact Info",
+                contactAddress: "Bishkek, Chuy Ave 142",
+                contactHours: "Hours: 10:00 AM - 01:00 AM",
+                yandexInfoTitle: "Delivery Policy",
+                yandexBannerTitle: "Yandex Express",
+                yandexBannerDesc: "All deliveries are dispatched via Yandex Express following payment completion.",
+                copyright: "All rights reserved.",
+                footerAbout: "Maki sushi — Bringing Japanese samurai traditions and fresh taste to your table.",
+                cartHeading: "Your Shopping Cart",
+                labelDeliveryType: "Fulfillment Type:",
+                modeDelivery: "Delivery",
+                modePickup: "Pickup",
+                noticeHtml: '<strong class="font-bold text-white">Note:</strong> Delivery is carried out via Yandex. Delivery is performed <span class="underline underline-offset-2">only after payment</span> when switching to WhatsApp.',
+                labelName: "Your Full Name *",
+                labelPhone: "Phone Number *",
+                labelAddress: "Delivery Address *",
+                labelNotes: "Notes / Special Requests",
+                placeholderName: "Nurbek",
+                placeholderPhone: "+996 (500) 00-00-00",
+                placeholderAddress: "120 Ahunbaev str, apt 45",
+                placeholderNotes: "E.g. Extra wasabi, chopsticks for 3 people...",
+                totalLabel: "Total Amount:",
+                btnWhatsApp: "Order via WhatsApp",
+                cartEmptyMsg: "Your cart is empty",
+                alertFillFields: "Please fill in all required fields!",
+                alertEmptyCart: "Your cart is empty! Select items first."
+            }
+        };
+
+        const menuData = [
+            { id: 1, name: 'Филадельфия', price: 750, weight: '300гр', img: '/img/фило.jpeg', desc: 'Свежий лосось, авокадо, сливочный сыр' },
+            { id: 2, name: 'Дракон ролл', price: 650, weight: '245гр', img: '/img/др.jpeg', desc: 'Угорь, авокадо, соус унаги, кунжут' },
+            { id: 3, name: 'Калифорния', price: 350, weight: '235гр', img: '/img/коли.jpeg', desc: 'Снежный краб, огурец, авокадо, икра тобико' },
+            { id: 4, name: 'Овара ролл', price: 330, weight: '220гр', img: '/img/овара.jpeg', desc: 'Авторский ролл со свежей рыбой и фирменным соусом' },
+            { id: 5, name: 'Фреш ролл', price: 350, weight: '225гр', img: '/img/фр.jpeg', desc: 'Легкий и свежий ролл с овощами и рыбой' },
+            { id: 6, name: 'Бонито ролл', price: 380, weight: '200гр', img: '/img/боинто.jpeg', desc: 'Лосось, сливочный сыр, стружка тунца бонито' },
+            { id: 7, name: 'Спайс Унаги', price: 680, weight: '275гр', img: '/img/су.jpeg', desc: 'Пикантный угорь со спайси соусом' },
+            { id: 8, name: 'Вулкан', price: 350, weight: '225гр', img: '/img/вулкан.jpeg', desc: 'Запеченный ролл с фирменной острой шапочкой' },
+            { id: 9, name: 'Королевский', price: 700, weight: '280гр', img: '/img/корелевский.jpeg', desc: 'Премиум ролл с богатой начинкой из морепродуктов' },
+            { id: 10, name: 'Калифорния с крабом', price: 350, weight: '235гр', img: '/img/кк.jpeg', desc: 'Натуральное мясо краба, авокадо, икра тобико' },
+            { id: 11, name: 'Токио-Бишкек', price: 330, weight: '155гр', img: '/img/токиобиш.jpeg', desc: 'Уникальное сочетание японских и местных традиций' },
+            { id: 12, name: 'Радуга', price: 650, weight: '290гр', img: '/img/радуга.jpeg', desc: 'Яркий ролл с ассорти из разных видов рыбы' },
+            { id: 13, name: 'Итальянский ролл', price: 600, weight: '256гр', img: '/img/ир.jpeg', desc: 'Ролл с нежным сыром и особыми специями' },
+            { id: 14, name: 'Карамельный угорь', price: 700, weight: '280гр', img: '/img/ку.jpeg', desc: 'Угорь в карамельно-унаги глазури' },
+            { id: 15, name: 'Ролл Маки фирменный', price: 680, weight: '295гр', img: '/img/рмф.jpeg', desc: 'Специальный рецепт от нашего шеф-повара' },
+            { id: 16, name: 'Канада', price: 700, weight: '295гр', img: '/img/канада.jpeg', desc: 'Лосось, угорь, авокадо, сливочный сыр, унаги соус' },
+            { id: 17, name: 'Магуро Сенсей', price: 680, weight: '275гр', img: '/img/магуро.jpeg', desc: 'Изысканный тунец с пикантным соусом' },
+            { id: 18, name: 'Сякэ Калифорния', price: 550, weight: '255гр', img: '/img/сякоколи.jpeg', desc: 'Калифорния с добавлением нежного лосося' },
+            { id: 19, name: 'Сякэ кадо', price: 530, weight: '212гр', img: '/img/сякокадо.jpeg', desc: 'Лосось и авокадо в идеальном балансе' },
+            { id: 20, name: 'Мексиканский ролл', price: 555, weight: '235гр', img: '/img/мр.jpeg', desc: 'Остренький ролл с ярким насыщенным вкусом' },
+            { id: 21, name: 'Даку ролл', price: 450, weight: '235гр', img: '/img/дакур.jpeg', desc: 'Оригинальный ролл с фирменным соусом' },
+            { id: 22, name: 'Яки Магуро ролл', price: 400, weight: '230гр', img: '/img/яки.jpeg', desc: 'Запеченный тунец с нежной текстурой' },
+            { id: 23, name: 'Отори ролл', price: 450, weight: '232гр', img: '/img/отори.jpeg', desc: 'Сочный ролл со свежими морепродуктами' },
+            { id: 24, name: 'Ролл Филадельфия лайт', price: 650, weight: '280гр', img: '/img/рфила.jpeg', desc: 'Облегченная версия классической Филадельфии' },
+            { id: 25, name: 'Маки с угрём', price: 280, weight: '110гр', img: '/img/макису.jpeg', desc: 'Классический маки ролл с копченым угрём' },
+            { id: 26, name: 'Маки с лососем', price: 280, weight: '110гр', img: '/img/макисл.jpeg', desc: 'Классический маки ролл со свежим лососем' },
+            { id: 27, name: 'Маки с тунцом', price: 250, weight: '110гр', img: '/img/макист.jpeg', desc: 'Традиционный маки ролл с тунцом' },
+            { id: 28, name: 'Маки с огурцом', price: 190, weight: '110гр', img: '/img/макисо.jpeg', desc: 'Легкий освежающий ролл с хрустящим огурцом' },
+            { id: 29, name: 'Маки с авокадо', price: 250, weight: '110гр', img: '/img/макиса.jpeg', desc: 'Нежный маки ролл со спелым авокадо' },
+            { id: 30, name: 'Американо', price: 550, weight: '265гр', img: '/img/амери.jpeg', desc: 'Сытный ролл в американском стиле' },
+            { id: 31, name: 'Кани хотто', price: 450, weight: '230гр', img: '/img/кани.jpeg', desc: 'Горячий запеченный ролл с крабом' },
+            { id: 32, name: 'Кугувасе', price: 480, weight: '230гр', img: '/img/кугу.jpeg', desc: 'Особый ролл с богатым вкусовым букетом' },
+            { id: 33, name: 'Окинава ролл', price: 350, weight: '225гр', img: '/img/окинава.jpeg', desc: 'Легкий и свежий ролл с овощами и рыбой' },
+            { id: 34, name: 'Маки фурай', price: 580, weight: '260гр', img: '/img/макиф.jpeg', desc: 'Сочный маки ролл с фирменной начинкой' }
+        ];
+
+        function switchLanguage(lang) {
+            currentLang = lang;
+            const dict = translations[lang];
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (dict[key]) {
+                    el.innerText = dict[key];
+                }
+            });
+
+            document.getElementById('notice-text-content').innerHTML = dict.noticeHtml;
+
+            document.getElementById('cust-name').placeholder = dict.placeholderName;
+            document.getElementById('cust-phone').placeholder = dict.placeholderPhone;
+            document.getElementById('cust-address').placeholder = dict.placeholderAddress;
+            document.getElementById('cust-notes').placeholder = dict.placeholderNotes;
+
+            renderMenu(menuData);
+            updateCartUI();
+        }
+
+        function renderMenu(items) {
+            const grid = document.getElementById('menu-items-grid');
+            const dict = translations[currentLang];
+            grid.innerHTML = '';
+
+            items.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'samurai-card bg-samurai-cardBg/90 backdrop-blur rounded-2xl overflow-hidden flex flex-col justify-between group';
+                card.innerHTML = `
+                    <div class="relative overflow-hidden h-56 sm:h-60">
+                        <img src="${item.img}" alt="${item.name}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <span class="absolute top-3 right-3 bg-samurai-black/80 backdrop-blur border border-samurai-goldLight/40 text-samurai-goldLight text-xs px-2.5 py-1 rounded-full font-bold">
+                            ${item.weight}
+                        </span>
+                    </div>
+                    <div class="p-5 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h4 class="text-lg font-bold font-cinzel text-white group-hover:text-samurai-goldLight transition-colors">${item.name}</h4>
+                            <p class="text-xs text-gray-400 mt-1 line-clamp-2">${item.desc}</p>
+                        </div>
+                        <div class="mt-5 flex items-center justify-between">
+                            <span class="text-lg font-bold font-cinzel text-samurai-goldLight">${item.price} сом</span>
+                            <button onclick="addToCart('${item.name}', ${item.price}, '${item.img}')" class="px-3.5 py-2 rounded-xl bg-samurai-red hover:bg-red-700 text-white font-semibold text-xs transition-colors flex items-center gap-1.5">
+                                <i class="fa-solid fa-plus"></i> ${dict.btnToCart}
+                            </button>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function addToCart(name, price, img) {
+            const existing = cart.find(item => item.name === name);
+            if (existing) {
+                existing.quantity += 1;
+            } else {
+                cart.push({ name, price, img, quantity: 1 });
+            }
+            updateCartUI();
+
+            const cartBtn = document.getElementById('cart-btn');
+            cartBtn.classList.add('scale-125');
+            setTimeout(() => cartBtn.classList.remove('scale-125'), 200);
+        }
+
+        function updateCartQuantity(index, change) {
+            cart[index].quantity += change;
+            if (cart[index].quantity <= 0) {
+                cart.splice(index, 1);
+            }
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const container = document.getElementById('cart-items-container');
+            const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const dict = translations[currentLang];
+
+            document.getElementById('cart-count').innerText = totalCount;
+            document.getElementById('cart-total-price').innerText = totalPrice + ' сом';
+
+            container.innerHTML = '';
+
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-8 text-gray-400 space-y-2">
+                        <i class="fa-solid fa-box-open text-3xl text-gray-600"></i>
+                        <p class="text-xs font-semibold">${dict.cartEmptyMsg}</p>
+                    </div>
+                `;
+                return;
+            }
+
+            cart.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = 'flex items-center justify-between p-3 bg-samurai-black/90 rounded-xl border border-white/5';
+                div.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <img src="${item.img}" class="w-11 h-11 rounded-lg object-cover">
+                        <div>
+                            <h5 class="text-xs font-bold font-cinzel text-white">${item.name}</h5>
+                            <span class="text-xs text-samurai-goldLight font-bold">${item.price} сом</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2 bg-samurai-darkGray px-2 py-1 rounded-lg border border-gray-700">
+                        <button onclick="updateCartQuantity(${index}, -1)" class="text-xs text-gray-400 hover:text-white px-1.5 py-0.5">-</button>
+                        <span class="text-xs font-bold text-white px-1">${item.quantity}</span>
+                        <button onclick="updateCartQuantity(${index}, 1)" class="text-xs text-gray-400 hover:text-white px-1.5 py-0.5">+</button>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function setDeliveryType(type) {
+            selectedDeliveryMode = type;
+            const btnDelivery = document.getElementById('btn-mode-delivery');
+            const btnPickup = document.getElementById('btn-mode-pickup');
+            const notice = document.getElementById('delivery-notice');
+            const addressWrapper = document.getElementById('address-input-wrapper');
+
+            if (type === 'delivery') {
+                btnDelivery.className = 'py-2.5 px-3 rounded-xl border text-xs font-bold transition-all flex items-center justify-center gap-2 border-samurai-red bg-samurai-red text-white';
+                btnPickup.className = 'py-2.5 px-3 rounded-xl border text-xs font-bold transition-all flex items-center justify-center gap-2 border-gray-700 bg-samurai-black text-gray-400 hover:border-samurai-gold';
+                notice.classList.remove('hidden');
+                addressWrapper.classList.remove('hidden');
+            } else {
+                btnPickup.className = 'py-2.5 px-3 rounded-xl border text-xs font-bold transition-all flex items-center justify-center gap-2 border-samurai-red bg-samurai-red text-white';
+                btnDelivery.className = 'py-2.5 px-3 rounded-xl border text-xs font-bold transition-all flex items-center justify-center gap-2 border-gray-700 bg-samurai-black text-gray-400 hover:border-samurai-gold';
+                notice.classList.add('hidden');
+                addressWrapper.classList.add('hidden');
+            }
+        }
+
+        function toggleCartModal() {
+            const modal = document.getElementById('cart-modal');
+            modal.classList.toggle('hidden');
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        function sendOrderToWhatsApp() {
+            const dict = translations[currentLang];
+
+            if (cart.length === 0) {
+                alert(dict.alertEmptyCart);
+                return;
+            }
+
+            const name = document.getElementById('cust-name').value.trim();
+            const phone = document.getElementById('cust-phone').value.trim();
+            const address = document.getElementById('cust-address').value.trim();
+            const notes = document.getElementById('cust-notes').value.trim();
+
+            if (!name || !phone || (selectedDeliveryMode === 'delivery' && !address)) {
+                alert(dict.alertFillFields);
+                return;
+            }
+
+            let msg = `🍣 *MAKI SUSHI — НОВЫЙ ЗАКАЗ* 🍣\n\n`;
+            msg += `👤 *Имя:* ${name}\n`;
+            msg += `📞 *Телефон:* ${phone}\n`;
+            msg += `🚚 *Тип:* ${selectedDeliveryMode === 'delivery' ? 'Доставка (Яндекс)' : 'Самовывоз'}\n`;
+
+            if (selectedDeliveryMode === 'delivery') {
+                msg += `📍 *Адрес:* ${address}\n`;
+            }
+
+            if (notes) {
+                msg += `📝 *Примечание:* ${notes}\n`;
+            }
+
+            msg += `\n🍱 *Состав заказа:*\n`;
+            let totalPrice = 0;
+            cart.forEach((item, idx) => {
+                const subtotal = item.price * item.quantity;
+                totalPrice += subtotal;
+                msg += `${idx + 1}. ${item.name} x ${item.quantity} = ${subtotal} сом\n`;
+            });
+
+            msg += `\n💰 *Итоговая сумма:* ${totalPrice} сом\n`;
+
+            if (selectedDeliveryMode === 'delivery') {
+                msg += `\n⚠️ *Примечание:* Доставка осуществляется через Яндекс. Доставка выполняется только после оплаты.`;
+            }
+
+            const targetUrl = `https://wa.me/${ADMIN_WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+            window.open(targetUrl, '_blank');
+        }
+
+        function initSakuraAnimation() {
+            const canvas = document.getElementById('sakura-canvas');
+            const ctx = canvas.getContext('2d');
+
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+
+            const petals = [];
+            const petalCount = 26;
+
+            for (let i = 0; i < petalCount; i++) {
+                petals.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    size: Math.random() * 6 + 3,
+                    speedY: Math.random() * 1.2 + 0.5,
+                    speedX: Math.random() * 0.8 - 0.4,
+                    opacity: Math.random() * 0.4 + 0.2,
+                    angle: Math.random() * 360
+                });
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                petals.forEach(petal => {
+                    ctx.save();
+                    ctx.translate(petal.x, petal.y);
+                    ctx.rotate(petal.angle * Math.PI / 180);
+                    ctx.fillStyle = `rgba(220, 38, 38, ${petal.opacity})`;
+
+                    ctx.beginPath();
+                    ctx.ellipse(0, 0, petal.size, petal.size / 2, 0, 0, 2 * Math.PI);
+                    ctx.fill();
+                    ctx.restore();
+
+                    petal.y += petal.speedY;
+                    petal.x += petal.speedX;
+                    petal.angle += 0.5;
+
+                    if (petal.y > canvas.height) {
+                        petal.y = -10;
+                        petal.x = Math.random() * canvas.width;
+                    }
+                });
+
+                requestAnimationFrame(draw);
+            }
+
+            draw();
+        }
+
+        window.onload = function () {
+            switchLanguage('ru');
+            initSakuraAnimation();
+        };
+    </script>
+</body>
+
+</html>
