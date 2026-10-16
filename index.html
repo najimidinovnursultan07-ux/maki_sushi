@@ -332,6 +332,10 @@
                         оригинальным японским рецептам</p>
                 </div>
 
+                <div id="menu-category-filters" class="flex gap-2 overflow-x-auto pb-4 mb-4" role="group"
+                    aria-label="Категории меню">
+                </div>
+
                 <!-- Dynamic Items Grid -->
                 <div id="menu-items-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <!-- Dynamic JavaScript Rendered Items -->
@@ -419,10 +423,10 @@
                             Maki sushi — японские традиции, свежесть и отменный вкус на вашем столе.
                         </p>
                         <div class="flex space-x-3 pt-2">
-                            <a href="#"
+                            <a href="https://www.instagram.com/makisushi.kg?obrf=emt4OTQ3OTB0a3Iz"
                                 class="w-9 h-9 rounded-lg bg-samurai-cardBg flex items-center justify-center text-gray-300 hover:text-samurai-red hover:border hover:border-samurai-red transition-all"><i
                                     class="fa-brands fa-instagram"></i></a>
-                            <a href="https://wa.me/996507578578" target="_blank"
+                            <a href="https://wa.me/996550505256" target="_blank"
                                 class="w-9 h-9 rounded-lg bg-samurai-cardBg flex items-center justify-center text-gray-300 hover:text-samurai-red hover:border hover:border-samurai-red transition-all"><i
                                     class="fa-brands fa-whatsapp"></i></a>
                             <a href="#"
@@ -437,12 +441,12 @@
                             Информация</h4>
                         <div class="space-y-2 text-xs text-gray-300">
                             <p class="flex items-center gap-2"><i class="fa-solid fa-location-dot text-samurai-red"></i>
-                                <span data-i18n="contactAddress">г. Бишкек, пр. Чуй 142</span>
+                                <span data-i18n="contactAddress">г. Бишкек, ул. Сыдыкова 123</span>
                             </p>
                             <p class="flex items-center gap-2"><i class="fa-solid fa-phone text-samurai-goldLight"></i>
-                                +996 (507) 57-85-78</p>
+                                0550 50 52 56</p>
                             <p class="flex items-center gap-2"><i class="fa-solid fa-clock text-samurai-red"></i> <span
-                                    data-i18n="contactHours">Время работы: 10:00 - 01:00</span></p>
+                                    data-i18n="contactHours">Время работы: 10:00 - 00:00</span></p>
                         </div>
                     </div>
 
@@ -592,7 +596,7 @@
         let currentLang = 'ru';
         let selectedDeliveryMode = 'delivery';
         let cart = [];
-        const ADMIN_WHATSAPP_NUMBER = "996507578578";
+        const ADMIN_WHATSAPP_NUMBER = "996550505256";
 
         const translations = {
             ru: {
@@ -611,6 +615,22 @@
                 statSets: "Видов роллов",
                 menuTitle: "Наше Меню",
                 menuDesc: "Блюда, приготовленные по оригинальным японским рецептам",
+                menuCategories: {
+                    all: "Все",
+                    combo: "Комбо",
+                    sushi: "Суши",
+                    drinks: "Напитки",
+                    soups: "Супы",
+                    ramen: "Рамен",
+                    seafood: "Морепродукты",
+                    salads: "Салаты",
+                    pizza: "Пиццы",
+                    burgers: "Бургеры",
+                    snacks: "Закуски",
+                    skewers: "Шашлычки"
+                },
+                menuCategoriesLabel: "Категории меню",
+                menuEmpty: "В этой категории пока нет блюд.",
                 aboutBadge: "Философия",
                 aboutTitle: "Наша Самурайская Философия",
                 aboutText1: "Для самурая Катана — это не просто оружие, это его честь и душа. В суши-баре Maki sushi мы относимся к кулинарии с такой же высокой ответственностью.",
@@ -622,8 +642,8 @@
                 quoteText: '"Приготовление еды — это отражение души повара."',
                 quoteAuthor: "— Шеф Самурай",
                 contactTitle: "Контактная Информация",
-                contactAddress: "г. Бишкек, пр. Чуй 142",
-                contactHours: "Время работы: 10:00 - 01:00",
+                contactAddress: "г. Бишкек, ул. Сыдыкова 123",
+                contactHours: "Время работы: 10:00 - 00:00",
                 yandexInfoTitle: "Условия Доставки",
                 yandexBannerTitle: "Яндекс Доставка",
                 yandexBannerDesc: "Все заказы доставляются через Яндекс Экспресс. Отправка производится после оплаты.",
@@ -664,6 +684,22 @@
                 statSets: "Ролл түрлөрү",
                 menuTitle: "Биздин Меню",
                 menuDesc: "Япониянын нукура рецепттери менен даярдалган тамактар",
+                menuCategories: {
+                    all: "Баары",
+                    combo: "Комбо",
+                    sushi: "Суши",
+                    drinks: "Суусундуктар",
+                    soups: "Шорполор",
+                    ramen: "Рамен",
+                    seafood: "Деңиз азыктары",
+                    salads: "Салаттар",
+                    pizza: "Пиццалар",
+                    burgers: "Бургерлер",
+                    snacks: "Жеңил тамактар",
+                    skewers: "Шашлыктар"
+                },
+                menuCategoriesLabel: "Меню категориялары",
+                menuEmpty: "Бул категорияда азырынча тамак жок.",
                 aboutBadge: "Философия",
                 aboutTitle: "Биздин Самурай Философиябыз",
                 aboutText1: "Самурайлар үчүн Катана жөн гана курал эмес — бул алардын ар-намысы жана каны. Maki sushi суши-барында биз да кулинардык өнөргө дал ошондой жоопкерчилик менен мамиле кылабыз.",
@@ -675,8 +711,8 @@
                 quoteText: '"Тамак даярдоо — бул ашпозчунун жан дүйнөсүнүн чагылышы."',
                 quoteAuthor: "— Шеф Самурай",
                 contactTitle: "Байланыш Маалыматы",
-                contactAddress: "Бишкек ш., Чүй проспектиси 142",
-                contactHours: "Иш убактысы: 10:00 - 01:00",
+                contactAddress: "Бишкек ш., Сыдыков көчөсү 123",
+                contactHours: "Иш убактысы: 10:00 - 00:00",
                 yandexInfoTitle: "Жеткирүү Шарты",
                 yandexBannerTitle: "Яндекс Жеткирүү",
                 yandexBannerDesc: "Бардык жеткирүүлөр Яндекс Экспресс аркылуу жүргүзүлөт. Буйрутма алдын ала төлөнгөндөн кийин жөнөтүлөт.",
@@ -717,6 +753,22 @@
                 statSets: "Types of Rolls",
                 menuTitle: "Our Menu",
                 menuDesc: "Dishes prepared following authentic Japanese recipes",
+                menuCategories: {
+                    all: "All",
+                    combo: "Combo",
+                    sushi: "Sushi",
+                    drinks: "Drinks",
+                    soups: "Soups",
+                    ramen: "Ramen",
+                    seafood: "Seafood",
+                    salads: "Salads",
+                    pizza: "Pizzas",
+                    burgers: "Burgers",
+                    snacks: "Snacks",
+                    skewers: "Skewers"
+                },
+                menuCategoriesLabel: "Menu categories",
+                menuEmpty: "There are no dishes in this category yet.",
                 aboutBadge: "Philosophy",
                 aboutTitle: "Our Samurai Philosophy",
                 aboutText1: "For a samurai, Katana is honor itself. At Maki sushi, we approach culinary craft with identical devotion.",
@@ -728,8 +780,8 @@
                 quoteText: '"Cooking is the direct reflection of the chef\'s soul."',
                 quoteAuthor: "— Chef Samurai",
                 contactTitle: "Contact Info",
-                contactAddress: "Bishkek, Chuy Ave 142",
-                contactHours: "Hours: 10:00 AM - 01:00 AM",
+                contactAddress: "Bishkek, Sydykov St 123",
+                contactHours: "Hours: 10:00 AM - 12:00 AM",
                 yandexInfoTitle: "Delivery Policy",
                 yandexBannerTitle: "Yandex Express",
                 yandexBannerDesc: "All deliveries are dispatched via Yandex Express following payment completion.",
@@ -755,6 +807,9 @@
                 alertEmptyCart: "Your cart is empty! Select items first."
             }
         };
+
+        const menuCategories = ['combo', 'sushi', 'soups', 'ramen', 'seafood', 'pizza', 'burgers', 'skewers', 'drinks', 'salads', 'snacks'];
+        let activeMenuCategory = 'all';
 
         const menuData = [
             { id: 1, name: 'Филадельфия', price: 750, weight: '300гр', img: '/img/фило.jpeg', desc: 'Свежий лосось, авокадо, сливочный сыр' },
@@ -790,7 +845,43 @@
             { id: 31, name: 'Кани хотто', price: 450, weight: '230гр', img: '/img/кани.jpeg', desc: 'Горячий запеченный ролл с крабом' },
             { id: 32, name: 'Кугувасе', price: 480, weight: '230гр', img: '/img/кугу.jpeg', desc: 'Особый ролл с богатым вкусовым букетом' },
             { id: 33, name: 'Окинава ролл', price: 350, weight: '225гр', img: '/img/окинава.jpeg', desc: 'Легкий и свежий ролл с овощами и рыбой' },
-            { id: 34, name: 'Маки фурай', price: 580, weight: '260гр', img: '/img/макиф.jpeg', desc: 'Сочный маки ролл с фирменной начинкой' }
+            { id: 34, name: 'Маки фурай', price: 580, weight: '260гр', img: '/img/макиф.jpeg', desc: 'Сочный маки ролл с фирменной начинкой' },
+            { id: 35, name: 'Салат с тунцом', price: 550, weight: '270гр', img: '/img/salat-s-tuntsom.jpeg', category: 'salads' },
+            { id: 36, name: 'Цезарь с креветками', price: 550, weight: '210гр', img: '/img/cezar-s-krevetkami.jpeg', category: 'salads' },
+            { id: 37, name: 'Цезарь с курицей', price: 450, weight: '210гр', img: '/img/cezar-s-kuricey.jpeg', category: 'salads' },
+            { id: 38, name: 'Бишкек спринг', price: 550, weight: '180гр', img: '/img/bishkek-spring.jpeg', category: 'salads' },
+            { id: 39, name: 'Греческий салат', price: 400, weight: '230гр', img: '/img/grecheskiy-salat.jpeg', category: 'salads' },
+            { id: 40, name: 'Том ям с морепродуктами', price: 650, weight: '100/400гр', img: '/img/tom-yam-s-moreproduktami.jpeg', category: 'soups' },
+            { id: 41, name: 'Сырно-сливочный суп', price: 450, weight: '450гр', img: '/img/syrno-slivochnyy-sup.jpeg', category: 'soups' },
+            { id: 42, name: 'Рамен с говядиной', price: 500, weight: '500гр', img: '/img/ramen-s-govyadinoy.jpeg', category: 'ramen' },
+            { id: 43, name: 'Сырный рамен', price: 500, weight: '500гр', img: '/img/syrnyy-ramen.jpeg', category: 'ramen' },
+            { id: 44, name: 'Гречневая лапша с говядиной', price: 450, weight: '350гр', img: '/img/grechnevaya-lapsha-s-govyadinoy.jpeg', category: 'ramen' },
+            { id: 45, name: 'Лапша Эми ям', price: 550, weight: '350гр', img: '/img/lapsha-emi-yam.jpeg', category: 'ramen' },
+            { id: 46, name: 'Лапша с курицей', price: 450, weight: '350гр', img: '/img/lapsha-s-kuricey.jpeg', category: 'ramen' },
+            { id: 47, name: 'Запечённые мидии', price: 450, img: '/img/zapechennye-midii.jpeg', category: 'seafood' },
+            { id: 48, name: 'Стейк сёмги', price: 1200, weight: '30/50/100гр', img: '/img/steik-semgi.jpeg', category: 'seafood' },
+            { id: 49, name: 'Морская', price: 850, weight: '30см', img: '/img/picca-morskaya.jpeg', category: 'pizza' },
+            { id: 50, name: 'Овощная', price: 650, weight: '30см', img: '/img/picca-ovoshnaya.jpeg', category: 'pizza' },
+            { id: 51, name: 'Жюльен', price: 650, weight: '30см', img: '/img/picca-zhyulen.jpeg', category: 'pizza' },
+            { id: 52, name: 'Цезарь', price: 650, weight: '30см', img: '/img/picca-cezar.PNG', category: 'pizza' },
+            { id: 53, name: 'Японский мини Бургер', price: 600, weight: '20/100/110гр', img: '/img/yaponskiy-mini-burger.jpeg', category: 'burgers' },
+            { id: 54, name: 'Бургер Маки', price: 800, weight: '100/280гр', img: '/img/burger-maki.jpeg', category: 'burgers' },
+            { id: 55, name: 'Картофель фри', price: 150, weight: '100гр', img: '/img/kartofel-fri.jpeg', category: 'snacks' },
+            { id: 56, name: 'Острые куриные крылышки', price: 350, weight: '200гр', img: '/img/ostrye-kurinye-krylyshki.jpeg', category: 'snacks' },
+            { id: 57, name: 'Шашлык из курицы', price: 150, weight: '40гр', img: '/img/shashlyk-iz-kuricy.jpeg', category: 'skewers' },
+            { id: 58, name: 'Шашлык из кальмара', price: 200, weight: '40гр', img: '/img/shashlyk-iz-kalmara.jpeg', category: 'skewers' },
+            { id: 59, name: 'Шашлычок из креветки', price: 220, weight: '40гр', img: '/img/shashlychok-iz-krevetki.jpeg', category: 'skewers' },
+            { id: 60, name: 'Шашлычок из перепелиных яиц', price: 100, weight: '3шт', img: '/img/shashlychok-iz-perepelinyh-yaic.jpeg', category: 'skewers' },
+            { id: 61, name: 'Шашлычок из лосося', price: 100, weight: '3шт', img: '/img/shashlychok-iz-lososya.jpeg', category: 'skewers' },
+            { id: 62, name: 'Coca-Cola', price: 120, weight: '1л', desc: 'Классическая газировка', category: 'drinks', img: "/img/кола.jpg" },
+            { id: 63, name: 'Coca-Cola', price: 60, weight: '0.5л', desc: 'Классическая газировка', category: 'drinks', img: "/img/кола.jpg" },
+            { id: 64, name: 'Fanta', price: 120, weight: '1л', desc: 'Освежающий апельсиновый вкус', category: 'drinks', img: "/img/спрайт.jpg" },
+            { id: 65, name: 'Fanta', price: 60, weight: '0.5л', desc: 'Освежающий апельсиновый вкус', category: 'drinks', img: "/img/спрайт.jpg" },
+            { id: 66, name: 'Sprite', price: 120, weight: '1л', desc: 'Лимонно-лаймовый вкус', category: 'drinks', img: "/img/фанта.jpg" },
+            { id: 67, name: 'Sprite', price: 60, weight: '0.5л', desc: 'Лимонно-лаймовый вкус', category: 'drinks', img: "/img/фанта.jpg" },
+            { id: 68, name: 'Комбо Лайт', price: 1899, desc: '100 роллов, пицца и 1 л колы в подарок', category: 'combo', img: '/img/комболайт.jpeg' },
+            { id: 69, name: 'Комбо Хит', price: 899, desc: '40 роллов, пицца, картофель фри и 1 л колы в подарок', category: 'combo', img: '/img/комбохит.jpeg' },
+            { id: 70, name: 'Акция: 3 пиццы + кола в подарок', desc: 'При заказе любых 3 пицц — 1 л колы в подарок', category: 'combo', img: '/img/комбоакция.jpeg' },
         ];
 
         function switchLanguage(lang) {
@@ -811,8 +902,35 @@
             document.getElementById('cust-address').placeholder = dict.placeholderAddress;
             document.getElementById('cust-notes').placeholder = dict.placeholderNotes;
 
+            renderMenuCategories();
             renderMenu(menuData);
             updateCartUI();
+        }
+
+        function renderMenuCategories() {
+            const container = document.getElementById('menu-category-filters');
+            const { menuCategories: labels, menuCategoriesLabel } = translations[currentLang];
+            const categories = ['all', ...menuCategories];
+            container.innerHTML = '';
+            container.setAttribute('aria-label', menuCategoriesLabel);
+
+            categories.forEach(category => {
+                const button = document.createElement('button');
+                const isActive = activeMenuCategory === category;
+                button.type = 'button';
+                button.textContent = labels[category];
+                button.setAttribute('aria-pressed', String(isActive));
+                button.className = `shrink-0 px-4 py-2 rounded-full border text-sm font-semibold transition-colors ${isActive
+                    ? 'border-samurai-red bg-samurai-red text-white'
+                    : 'border-gray-700 bg-samurai-black/70 text-gray-300 hover:border-samurai-goldLight hover:text-white'
+                    }`;
+                button.addEventListener('click', () => {
+                    activeMenuCategory = category;
+                    renderMenuCategories();
+                    renderMenu(menuData);
+                });
+                container.appendChild(button);
+            });
         }
 
         function renderMenu(items) {
@@ -820,26 +938,35 @@
             const dict = translations[currentLang];
             grid.innerHTML = '';
 
-            items.forEach(item => {
+            const filteredItems = activeMenuCategory === 'all'
+                ? items
+                : items.filter(item => (item.category || 'sushi') === activeMenuCategory);
+
+            if (filteredItems.length === 0) {
+                grid.innerHTML = `<p class="col-span-full text-center text-gray-400 py-10">${dict.menuEmpty}</p>`;
+                return;
+            }
+
+            filteredItems.forEach(item => {
                 const card = document.createElement('div');
                 card.className = 'samurai-card bg-samurai-cardBg/90 backdrop-blur rounded-2xl overflow-hidden flex flex-col justify-between group';
                 card.innerHTML = `
                     <div class="relative overflow-hidden h-56 sm:h-60">
-                        <img src="${item.img}" alt="${item.name}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                        <span class="absolute top-3 right-3 bg-samurai-black/80 backdrop-blur border border-samurai-goldLight/40 text-samurai-goldLight text-xs px-2.5 py-1 rounded-full font-bold">
-                            ${item.weight}
-                        </span>
+                        ${item.img
+                        ? `<img src="${item.img}" alt="${item.name}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">`
+                        : '<div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-samurai-darkGray to-samurai-black text-samurai-goldLight"><i class="fa-solid fa-utensils text-5xl opacity-70"></i></div>'}
+                        ${item.weight ? `<span class="absolute top-3 right-3 bg-samurai-black/80 backdrop-blur border border-samurai-goldLight/40 text-samurai-goldLight text-xs px-2.5 py-1 rounded-full font-bold">${item.weight}</span>` : ''}
                     </div>
                     <div class="p-5 flex-1 flex flex-col justify-between">
                         <div>
                             <h4 class="text-lg font-bold font-cinzel text-white group-hover:text-samurai-goldLight transition-colors">${item.name}</h4>
-                            <p class="text-xs text-gray-400 mt-1 line-clamp-2">${item.desc}</p>
+                            ${item.desc ? `<p class="text-xs text-gray-400 mt-1 line-clamp-2">${item.desc}</p>` : ''}
                         </div>
                         <div class="mt-5 flex items-center justify-between">
-                            <span class="text-lg font-bold font-cinzel text-samurai-goldLight">${item.price} сом</span>
-                            <button onclick="addToCart('${item.name}', ${item.price}, '${item.img}')" class="px-3.5 py-2 rounded-xl bg-samurai-red hover:bg-red-700 text-white font-semibold text-xs transition-colors flex items-center gap-1.5">
+                            ${item.price != null ? `<span class="text-lg font-bold font-cinzel text-samurai-goldLight">${item.price} сом</span>` : '<span></span>'}
+                            ${item.price != null ? `<button onclick="addToCart('${item.name}', ${item.price}, '${item.img || ''}')" class="px-3.5 py-2 rounded-xl bg-samurai-red hover:bg-red-700 text-white font-semibold text-xs transition-colors flex items-center gap-1.5">
                                 <i class="fa-solid fa-plus"></i> ${dict.btnToCart}
-                            </button>
+                            </button>` : ''}
                         </div>
                     </div>
                 `;
