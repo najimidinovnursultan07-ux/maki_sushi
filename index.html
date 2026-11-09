@@ -873,16 +873,16 @@
             { id: 59, name: 'Шашлычок из креветки', price: 220, weight: '40гр', img: '/img/shashlychok-iz-krevetki.jpeg', category: 'skewers' },
             { id: 60, name: 'Шашлычок из перепелиных яиц', price: 100, weight: '3шт', img: '/img/shashlychok-iz-perepelinyh-yaic.jpeg', category: 'skewers' },
             { id: 61, name: 'Шашлычок из лосося', price: 100, weight: '3шт', img: '/img/shashlychok-iz-lososya.jpeg', category: 'skewers' },
-            { id: 62, name: 'Coca-Cola', price: 120, weight: '1л', desc: 'Классическая газировка', category: 'drinks', img: "/img/кола.jpg" },
-            { id: 63, name: 'Coca-Cola', price: 60, weight: '0.5л', desc: 'Классическая газировка', category: 'drinks', img: "/img/кола.jpg" },
-            { id: 64, name: 'Fanta', price: 120, weight: '1л', desc: 'Освежающий апельсиновый вкус', category: 'drinks', img: "/img/спрайт.jpg" },
-            { id: 65, name: 'Fanta', price: 60, weight: '0.5л', desc: 'Освежающий апельсиновый вкус', category: 'drinks', img: "/img/спрайт.jpg" },
-            { id: 66, name: 'Sprite', price: 120, weight: '1л', desc: 'Лимонно-лаймовый вкус', category: 'drinks', img: "/img/фанта.jpg" },
-            { id: 67, name: 'Sprite', price: 60, weight: '0.5л', desc: 'Лимонно-лаймовый вкус', category: 'drinks', img: "/img/фанта.jpg" },
-            { id: 68, name: 'Комбо Лайт', price: 1899, desc: '100 роллов, пицца и 1 л колы в подарок', category: 'combo', img: '/img/комболайт.jpeg' },
-            { id: 69, name: 'Комбо Хит', price: 899, desc: '40 роллов, пицца, картофель фри и 1 л колы в подарок', category: 'combo', img: '/img/комбохит.jpeg' },
+            { id: 62, name: 'Coca-Cola', price: 130, weight: '1л', desc: 'Классическая газировка', category: 'drinks', img: "/img/кола.jpg" },
+            { id: 64, name: 'Fanta', price: 130, weight: '1л', desc: 'Освежающий апельсиновый вкус', category: 'drinks', img: "/img/фанта.jpg" },
+            { id: 66, name: 'Sprite', price: 130, weight: '1л', desc: 'Лимонно-лаймовый вкус', category: 'drinks', img: "/img/спрайт.jpg" },
+            { id: 68, name: 'Комбо Лайт', price: 2599, desc: '100 штук роллы, 2 пицца, картошка фри и 1 литр кола в подарок', category: 'combo', img: '/img/комболайт.png' },
+            { id: 69, name: 'Комбо Хит', price: 1299, desc: '40 роллов, пицца, картофель фри и 1 л колы в подарок', category: 'combo', img: '/img/комбохит.png' },
             { id: 70, name: 'Акция: 3 пиццы + кола в подарок', desc: 'При заказе любых 3 пицц — 1 л колы в подарок', category: 'combo', img: '/img/комбоакция.jpeg' },
+            { id: 71, name: 'Комбо прайм эра', price: 1990, desc: '84 штук роллы, 1 пицца пеперони, картошка фри и 1 литр кола в подарок', category: 'combo', img: '/img/комбопраймэра.png' },
+
         ];
+
 
         function switchLanguage(lang) {
             currentLang = lang;
@@ -939,7 +939,7 @@
             grid.innerHTML = '';
 
             const filteredItems = activeMenuCategory === 'all'
-                ? items
+                ? [...items.filter(item => item.category === 'combo'), ...items.filter(item => item.category !== 'combo')]
                 : items.filter(item => (item.category || 'sushi') === activeMenuCategory);
 
             if (filteredItems.length === 0) {
@@ -951,9 +951,9 @@
                 const card = document.createElement('div');
                 card.className = 'samurai-card bg-samurai-cardBg/90 backdrop-blur rounded-2xl overflow-hidden flex flex-col justify-between group';
                 card.innerHTML = `
-                    <div class="relative overflow-hidden h-56 sm:h-60">
+                    <div class="relative overflow-hidden h-56 sm:h-60 ${item.category === 'combo' ? 'bg-samurai-black/40' : ''}">
                         ${item.img
-                        ? `<img src="${item.img}" alt="${item.name}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">`
+                        ? `<img src="${item.img}" alt="${item.name}" class="w-full h-full ${item.category === 'combo' ? 'object-contain' : 'object-cover group-hover:scale-110'} transition-transform duration-500">`
                         : '<div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-samurai-darkGray to-samurai-black text-samurai-goldLight"><i class="fa-solid fa-utensils text-5xl opacity-70"></i></div>'}
                         ${item.weight ? `<span class="absolute top-3 right-3 bg-samurai-black/80 backdrop-blur border border-samurai-goldLight/40 text-samurai-goldLight text-xs px-2.5 py-1 rounded-full font-bold">${item.weight}</span>` : ''}
                     </div>
